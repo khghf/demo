@@ -2,9 +2,13 @@
 
 角色相关蓝图在 BP/PlayerCharacter/Characters/Sword_Man 
 
+敌人蓝图在 BP/EnemyCharacter/Enemies
+
 输入相关资产在 BP/PlayerCharacter/Input 
 
 UI在 Widgets
+
+其它动画、粒子资产大多在Asset中
 
 e键:技能
 
