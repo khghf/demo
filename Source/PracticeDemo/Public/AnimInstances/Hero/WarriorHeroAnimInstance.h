@@ -79,6 +79,8 @@ protected:
 	//控制器与角色夹角(归一化)
 	UPROPERTY(BlueprintReadWrite, Category = "AnimData|TurnInPlace|ALS_Solution")
 	float YawControler_Actor;
+	UPROPERTY(BlueprintReadOnly, Category = "AnimData|TurnInPlace|ALS_Solution")
+	FRotator ControllerRotation;
 	UPROPERTY(BlueprintReadOnly,EditDefaultsOnly, Category = "AnimData|TurnInPlace|ALS_Solution")
 	float TurnCheckMinAngle=45.f;
 	//转身前的延迟时间

@@ -56,7 +56,8 @@ void UWarriorHeroAnimInstance::UpdateRotationData()
 	{
 		YawDeltaSinceLastUpdate = 0.f;
 	}
-	
+	ControllerRotation = OwningCharacter->GetControlRotation();
+	FacingDirection=SelectCardinalDirectionalFromAngle(UKismetMathLibrary::NormalizedDeltaRotator(WorldRotation, ControllerRotation).Yaw, 15.f, FacingDirection, true);
 }
 
 void UWarriorHeroAnimInstance::UpdateVelocityData()
@@ -122,7 +123,7 @@ void UWarriorHeroAnimInstance::UpdateTurnInPlaceData()
 		bCanTurnInPlace = false;
 		return;
 	}
-	YawControler_Actor = UKismetMathLibrary::NormalizedDeltaRotator(OwningCharacter->GetControlRotation(), WorldRotation).Yaw;
+	YawControler_Actor = UKismetMathLibrary::NormalizedDeltaRotator(ControllerRotation, WorldRotation).Yaw;
 	const float& TurnAngleAbs = UKismetMathLibrary::Abs(YawControler_Actor);
 	if (TurnAngleAbs > TurnCheckMinAngle)
 	{

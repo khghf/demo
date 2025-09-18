@@ -32,7 +32,7 @@ protected:
 	AActor* FindActorToLock();
 	FTimerHandle TickHandle;
 	void OnTargetLockTick(float DeltaTime);
-	void UpdateCameraRotation(float DeltaTime);
+	void UpdateCameraAndRoleRotation(float DeltaTime);
 	void DrawTargetLockWidget();
 	void SetTargetLockWidgetPosition();
 	void CleanUp();

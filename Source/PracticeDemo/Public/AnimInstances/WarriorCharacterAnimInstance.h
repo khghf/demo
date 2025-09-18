@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -35,12 +35,17 @@ protected:
 	bool bHasAcceleration;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|Locomotion")
 	float LocomotionDirection;
+	//速度方向。相对与角色自身
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|VelocityData")
 	ECardinalDirection LocalVelocityDirection;
+	//面朝方向。相对于玩家视角(控制器)
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|VelocityData")
+	ECardinalDirection FacingDirection= ECardinalDirection::Forward;
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AnimData|VelocityData")
 	ECardinalDirection LocalVelocityDirectionNoOffset;
 	
 public:
+	//注意InAngle必须是标准角度
 	UFUNCTION(BlueprintCallable,BlueprintPure)
 	ECardinalDirection SelectCardinalDirectionalFromAngle(const float& InAngle, const float& InDeadZone, const ECardinalDirection& InCurrentDirection, const bool& InbUseCurrentDirection);
 	UFUNCTION(BlueprintCallable, BlueprintPure)

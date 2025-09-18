@@ -200,18 +200,23 @@ void UTargetLockComponent::OnTargetLockTick(float DeltaTime)
 		EndLock();
 		return;
 	}
-	UpdateCameraRotation(DeltaTime);
+	UpdateCameraAndRoleRotation(DeltaTime);
 	SetTargetLockWidgetPosition();
 }
 
-void UTargetLockComponent::UpdateCameraRotation(float DeltaTime)
+void UTargetLockComponent::UpdateCameraAndRoleRotation(float DeltaTime)
 {
 	const bool bShouldOverrideCameraRotation =
 		!UWarriorFunctionLibrary::NativeDoesActorHasTag(GetOwningPawn(), WarriorGameplayTags::Player_Status_Dodging)
 		&&
 		!UWarriorFunctionLibrary::NativeDoesActorHasTag(GetOwningPawn(), WarriorGameplayTags::Player_Status_Blocking);
 	//锁敌时会先调整旋转后播放转身动画，导致无法达到预期效果待修正。
-	const bool bShouldOverrideOwnerRotation = !UWarriorFunctionLibrary::NativeDoesActorHasTag(GetOwningPawn(), WarriorGameplayTags::Shared_Status_TurnInPlace);
+	const bool bShouldOverrideOwnerRotation = 
+		CachedCharacter->GetCharacterMovement()->IsMovingOnGround()
+		&& 
+		CachedCharacter->GetVelocity().Size2D()>10.f
+		&&
+		!UWarriorFunctionLibrary::NativeDoesActorHasTag(GetOwningPawn(), WarriorGameplayTags::Player_Status_Blocking);
 	if (!bShouldOverrideCameraRotation && !bShouldOverrideOwnerRotation)return;
 	FRotator LookAtRot = UKismetMathLibrary::FindLookAtRotation(GetOwningPawn()->GetActorLocation()
 		, CurrentLockedActor->GetActorLocation()
